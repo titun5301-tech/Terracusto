@@ -1,8 +1,6 @@
 # ============================================================
-# Vegetation indices + LAI from multiband GeoTIFF (simple version)
-# - No local helper functions
+# Vegetation indices + LAI from multiband GeoTIFF 
 # - Same indices + exports
-# - White background + colormap where 0 = white (by using caxis min)
 # ============================================================
 
 import os
@@ -33,7 +31,7 @@ def main():
         R_crs = ds.crs
         R_profile = ds.profile.copy()
 
-        # Similar to MATLAB "info"
+        
         print("Raster size:", A.shape)
         print("Coordinate system code (PCS if available): ")
         if R_crs is not None:
@@ -81,7 +79,6 @@ def main():
     # ============================================================
     # ----------- BAND MAPPING (EDIT THIS TO MATCH YOUR TIFF) ----------
     # Example assumption: [1=Blue, 2=Green, 3=Red, 4=RedEdge, 5=NIR]
-    # Python is 1-based in the "meaning" here, but array indices are 0-based.
     bBlue = 1
     bGreen = 2
     bRed = 3
@@ -235,9 +232,6 @@ def main():
     # ============================================================
     # STEP 5) Visualize + stats + pixel counts + export GeoTIFFs
     # ============================================================
-
-    # --- Colormap where 0 is white (lowest color = white) ---
-    # NOTE: This works as expected when you set caxis so that 0 is the minimum
     nC = 255
     cm = cmocean.cm.curl(np.linspace(0, 1, nC))  # sample cmocean "curl" into an (nC,4) RGBA array
     cm = cm[:, :3]  # RGB only
@@ -331,3 +325,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
